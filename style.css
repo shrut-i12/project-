@@ -1,0 +1,108 @@
+body.home {
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Zxv1JuXlxIiB1eon05TQoFE30fX81lYLow&s') no-repeat center center/cover;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: rgb(237, 248, 242);
+  height: 100vh;
+}
+
+.container {
+  padding-top: 100px;
+}
+
+.tagline {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.play-btn {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #5e5bf4;
+  border: none;
+  color: rgb(1, 5, 15);
+  cursor: pointer;
+}
+
+.game-container {
+  background-image: url('https://i0.wp.com/picjumbo.com/wp-content/uploads/soft-smoke-abstract-background-free-image.jpeg?w=600&quality=80');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  gap: 10px;
+  padding: 20px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.card {
+  background-color: rgb(196, 128, 171);
+  border-radius: 8px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card .front, .card .back {
+  position: absolute;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .front {
+  background: #bed6ea;
+  color: white;
+}
+
+.card .back {
+  background: #fff;
+  transform: rotateY(180deg);
+}
+
+.card.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.card.matched {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #e2bdb1;
+  color: white;
+  text-decoration: none;
+  margin: 5px;
+  border-radius: 5px;
+}
