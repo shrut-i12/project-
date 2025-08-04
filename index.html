@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home">
+    <div class="container">
+        <h1>Memory Card Game</h1>
+        <p class="tagline">Let's make our brain work!</p>
+        <form action="{{ url_for('game') }}" method="post">
+            <label><input type="radio" name="level" value="easy" required> Easy (4x4)</label>
+            <label><input type="radio" name="level" value="medium"> Medium (6x6)</label>
+            <label><input type="radio" name="level" value="hard"> Hard (8x8)</label>
+            <br><br>
+            <button type="submit" class="play-btn">Play</button>
+        </form>
+    </div>
+</body>
+</html>
