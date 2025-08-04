@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="game-container">
+        <h2>Find the Matching Emojis!</h2>
+        <h3>Score: <span id="score">0</span> | Moves: <span id="moves">0</span></h3>
+
+        <audio id="flipSound" preload="auto">
+            <source src="{{ url_for('static', filename='sounds/flip.mp3') }}" type="audio/mp3">
+        </audio>
+        
+        <audio id="matchSound" preload="auto">
+            <source src="{{ url_for('static', filename='sounds/match.mp3') }}" type="audio/mp3">
+        </audio>
+        
+
+        <div class="grid" style="--grid-size: {{ size }};">
+            {% for emoji in emojis %}
+              <div class="card" onclick="flipCard(this)">
+                <div class="front">❓</div>
+                <div class="back">{{ emoji }}</div>
+              </div>
+            {% endfor %}
+          </div>
+
+        <div class="buttons">
+            <a href="{{ url_for('quit_game') }}" class="btn">Quit</a>
+            <form action="{{ url_for('game') }}" method="post" style="display:inline;">
+                <input type="hidden" name="level" value="{{ level }}">
+                <button type="submit" class="btn">Next Game</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let flippedCards = [];
+            let score = 0;
+            let moves = 0;
+            const flip = document.getElementById("flip");
+            const match = document.getElementById("match");
+
+            window.flipCard = function(card) {
+                if (flippedCards.length >= 2 || card.classList.contains("matched") || card.classList.contains("flipped")) return;
+
+                card.classList.add("flipped");
+                flippedCards.push(card);
+                if (flip) flip.play();
+
+                if (flippedCards.length === 2) {
+                    moves++;
+                    document.getElementById("moves").textContent = moves;
+
+                    const [first, second] = flippedCards;
+                    const firstEmoji = first.querySelector(".back").innerText;
+                    const secondEmoji = second.querySelector(".back").innerText;
+
+                    if (firstEmoji === secondEmoji) {
+                        first.classList.add("matched");
+                        second.classList.add("matched");
+                        if (matchSound) matchSound.play();
+                        score += 10;
+                        document.getElementById("score").textContent = score;
+                        flippedCards = [];
+                    } else {
+                        setTimeout(() => {
+                            first.classList.remove("flipped");
+                            second.classList.remove("flipped");
+                            flippedCards = [];
+                        }, 1000);
+                    }
+                }
+            };
+        });
+    </script>
+</body>
+</html>
